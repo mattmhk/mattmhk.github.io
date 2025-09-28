@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our 5 Month Anniversary</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&family=Playfair+Display:wght@400;600;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Intro Sequence -->
+    <div id="intro-sequence" class="intro-sequence">
+        <div class="intro-slide active" data-slide="0">
+            <div class="slide-content">
+                <h1 class="main-title">Our Journey Together</h1>
+                <p class="subtitle">5 months of love, laughter, and memories</p>
+            </div>
+        </div>
+        
+        <div class="intro-slide" data-slide="1">
+            <div class="slide-content">
+                <h2 class="slide-title">From First Hello</h2>
+                <p class="slide-text">to forever together</p>
+            </div>
+        </div>
+        
+        <div class="intro-slide" data-slide="2">
+            <div class="slide-content">
+                <h2 class="slide-title">Every Moment</h2>
+                <p class="slide-text">has been a treasure</p>
+            </div>
+        </div>
+        
+        <div class="intro-slide" data-slide="3">
+            <div class="slide-content">
+                <h2 class="slide-title">Ready to Explore</h2>
+                <p class="slide-text">our beautiful story?</p>
+                <button class="enter-button" onclick="startMainExperience()">Enter Our World</button>
+            </div>
+        </div>
+        
+        <div class="intro-progress">
+            <div class="progress-bar"></div>
+        </div>
+    </div>
+
+    <!-- Main Application -->
+    <div id="main-app" class="main-app hidden">
+        <!-- Navigation -->
+        <nav class="main-nav">
+            <div class="nav-brand">
+                <h1>Our 5 Months</h1>
+            </div>
+            <div class="nav-menu">
+                <button class="nav-item active" data-section="home">Home</button>
+                <button class="nav-item" data-section="photos">Photo Wall</button>
+                <button class="nav-item" data-section="timeline">Timeline</button>
+                <button class="nav-item" data-section="love-letter">Love Letter</button>
+                <button class="nav-item" data-section="games">Games</button>
+            </div>
+        </nav>
+
+        <!-- Home Section -->
+        <section id="home" class="section active">
+            <div class="home-content">
+                <h2 class="section-title">Welcome to Our Story</h2>
+                <p class="section-description">Choose a section to explore our journey together</p>
+                <div class="home-grid">
+                    <div class="home-card" data-section="photos">
+                        <div class="card-icon">📸</div>
+                        <h3>Photo Wall</h3>
+                        <p>Our beautiful memories</p>
+                    </div>
+                    <div class="home-card" data-section="timeline">
+                        <div class="card-icon">⏰</div>
+                        <h3>Timeline</h3>
+                        <p>Our journey together</p>
+                    </div>
+                    <div class="home-card" data-section="love-letter">
+                        <div class="card-icon">💌</div>
+                        <h3>Love Letter</h3>
+                        <p>A message from my heart</p>
+                    </div>
+                    <div class="home-card" data-section="games">
+                        <div class="card-icon">🎮</div>
+                        <h3>Games</h3>
+                        <p>Fun together</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Photo Wall Section -->
+        <section id="photos" class="section">
+            <div class="section-header">
+                <h2 class="section-title">Our Photo Wall</h2>
+                <p class="section-description">Every picture tells our story</p>
+            </div>
+            <div class="photo-grid" id="photo-grid">
+                <!-- Photos will be dynamically loaded here -->
+            </div>
+        </section>
+
+        <!-- Timeline Section -->
+        <section id="timeline" class="section">
+            <div class="section-header">
+                <h2 class="section-title">Our Timeline</h2>
+                <p class="section-description">Every milestone, every memory</p>
+            </div>
+            <div class="timeline-container" id="timeline-container">
+                <!-- Timeline events will be dynamically loaded here -->
+            </div>
+        </section>
+
+        <!-- Love Letter Section -->
+        <section id="love-letter" class="section">
+            <div class="section-header">
+                <h2 class="section-title">A Love Letter</h2>
+                <p class="section-description">From my heart to yours</p>
+            </div>
+            <div class="love-letter-container">
+                <div class="letter-paper">
+                    <div class="letter-content" id="letter-content">
+                        My Dearest Love - Mama,<br><br>
+                        
+                        As I sit here reflecting on our 5 months together, my heart overflows with gratitude and joy. Every day with you has been a gift, every moment a treasure to hold close to my heart.<br><br>
+                        
+                        From our first hello to this beautiful anniversary, you've shown me what it means to love and be loved completely. You have been nothing but the best to me and I want to do so much for you. Your smile lights up my world, your laugh is my favorite sound, and your love is my greatest blessing.<br><br>
+                        
+                        Here's to growing old together till death do us apart with our family. You are my everything, my forever, my always.<br><br>
+                        
+                        With all my love,<br>
+                        Your devoted partner ❤️
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Games Section -->
+        <section id="games" class="section">
+            <div class="section-header">
+                <h2 class="section-title">Our Games</h2>
+                <p class="section-description">Play together and have fun</p>
+            </div>
+            <div class="games-grid">
+                <div class="game-card" onclick="startMemoryGame()">
+                    <div class="game-icon">🧠</div>
+                    <h3>Memory Match</h3>
+                    <p>Match our favorite photos</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Modals -->
+
+    <!-- Game Containers -->
+    <div id="memory-game" class="game-container hidden">
+        <div class="game-header">
+            <h3>Memory Match</h3>
+            <button class="close-game" onclick="closeMemoryGame()">&times;</button>
+        </div>
+        <div class="game-content" id="memory-content">
+            <!-- Memory game will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Romantic Effects -->
+    <div class="floating-hearts" id="floating-hearts"></div>
+    <div class="sparkles" id="sparkles"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
