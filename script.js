@@ -42,32 +42,44 @@ const samplePhotos = [
 const sampleTimelineEvents = [
     {
         id: 1,
-        title: 'First Meeting',
-        date: '2024-01-15',
-        description: 'The day we first met and everything changed forever.'
-    },
-    {
-        id: 2,
-        title: 'First Date',
-        date: '2024-01-20',
-        description: 'Our first official date - dinner and a movie that lasted until midnight.'
-    },
-    {
-        id: 3,
-        title: 'First Kiss',
-        date: '2024-01-25',
-        description: 'Under the stars, everything felt perfect.'
-    },
-    {
-        id: 4,
         title: 'Becoming Official',
-        date: '2024-02-01',
+        date: '2025-05-01',
         description: 'The day we decided to make it official and start this beautiful journey together.'
     },
     {
+        id: 2,
+        title: 'First Time Meeting IRL',
+        date: '2025-07-04',
+        description: 'I was so nervous, my heart was pounding like crazy! But I fell in love with you even more as soon as I saw you.'
+    },
+    {
+        id: 3,
+        title: 'First Date',
+        date: '2025-09-05',
+        description: 'We went to Lotus to eat Som Tum and had some drinks hehe'
+    },
+    {
+        id: 4,
+        title: 'Second Time Meeting IRL',
+        date: '2025-09-10',
+        description: 'It was like meeting for the first time all over again!!! Both our hearts were racing'
+    },
+    {
         id: 5,
+        title: 'Our First Time',
+        date: '2025-09-12',
+        description: 'Two lovefools deciding to give each others virginity.'
+    },
+    {
+        id: 6,
+        title: 'Our Hardest Goodbye Yet',
+        date: '2025-09-20',
+        description: "Who knew saying goodbye to each other would be this emotional (I actually cried by myself the night before but I didn't tell you because I was shy)"
+    },
+    {
+        id: 7,
         title: '5 Month Anniversary',
-        date: '2024-06-15',
+        date: '2025-10-01',
         description: 'Celebrating 5 amazing months of love, laughter, and growing together.'
     }
 ];
