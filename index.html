@@ -70,6 +70,7 @@
                 <button class="nav-item" data-section="photos">Photo Wall</button>
                 <button class="nav-item" data-section="timeline">Timeline</button>
                 <button class="nav-item" data-section="love-letter">Love Letter</button>
+                <button class="nav-item" data-section="quiz">Quiz</button>
                 <button class="nav-item" data-section="games">Games</button>
             </div>
         </nav>
@@ -95,12 +96,28 @@
                         <h3>Love Letter</h3>
                         <p>A message from my heart</p>
                     </div>
+                    <div class="home-card" data-section="quiz">
+                        <div class="card-icon">❓</div>
+                        <h3>Quiz</h3>
+                        <p>How well do you know us?</p>
+                    </div>
                     <div class="home-card" data-section="games">
                         <div class="card-icon">🎮</div>
                         <h3>Games</h3>
                         <p>Fun together</p>
                     </div>
                 </div>
+            </div>
+        </section>
+
+        <!-- Quiz Section -->
+        <section id="quiz" class="section">
+            <div class="section-header">
+                <h2 class="section-title">Our Relationship Quiz</h2>
+                <p class="section-description">Test your knowledge of our love story</p>
+            </div>
+            <div class="quiz-container" id="quiz-container">
+                <!-- Quiz will be dynamically loaded here -->
             </div>
         </section>
 
@@ -182,6 +199,12 @@
     <!-- Romantic Effects -->
     <div class="floating-hearts" id="floating-hearts"></div>
     <div class="sparkles" id="sparkles"></div>
+    
+    <!-- Background Music -->
+    <audio id="bg-music" loop preload="auto" autoplay playsinline>
+        <source src="music.mp3" type="audio/mpeg">
+    </audio>
+    <button id="music-toggle" class="edit-btn" style="position: fixed; bottom: 20px; right: 20px; z-index: 1100; opacity: 0.8;">🔈 Music</button>
 
     <script src="script.js"></script>
 </body>

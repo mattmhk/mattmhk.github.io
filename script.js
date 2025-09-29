@@ -2,6 +2,8 @@
 let currentSlide = 0;
 let slideInterval;
 let timelineEvents = [];
+let quizQuestions = [];
+let currentQuizQuestion = 0;
 
 // Sample data - replace with your actual content
 const samplePhotos = [
@@ -96,11 +98,26 @@ const sampleTimelineEvents = [
     }
 ];
 
+// Quiz data (10 read-only questions)
+const sampleQuizQuestions = [
+    { id: 1, question: 'Where did we first meet?', options: ['Discord VC', '#general', '#feet-reveal', '#anime'], correct: 0 },
+    { id: 2, question: 'Our first Roblox game together?', options: ['Adopt Me', 'Blair', 'Brookhaven', 'Death Rails'], correct: 1 },
+    { id: 3, question: 'Date we became official?', options: ['May 1, 2025', 'July 4, 2025', 'Sept 5, 2025', 'Oct 1, 2025'], correct: 0 },
+    { id: 4, question: 'First IRL meeting date?', options: ['July 4, 2025', 'Sept 10, 2025', 'Feb 27, 2025', 'Sept 12, 2025'], correct: 0 },
+    { id: 5, question: 'First date spot?', options: ['Lotus', 'Passport', 'Sat Market', 'Mable'], correct: 0 },
+    { id: 6, question: 'What did I eat at Mable?', options: ['Fruitti di Mare', 'Cabonara', 'Ravioli', 'Beef tartare'], correct: 2 },
+    { id: 7, question: 'Which one did we not eat at Passport?', options: ['Burger', 'French Fries', 'Citrus Salad', 'Egg Benedict'], correct: 2 },
+    { id: 8, question: 'When did we lose our virginity?', options: ['September 10', 'September 11', 'September 12', 'September 13'], correct: 2 },
+    { id: 9, question: 'Our second IRL meet date?', options: ['Sept 5', 'Sept 10', 'Sept 12', 'Sept 20'], correct: 1 },
+    { id: 10, question: 'Will you marry me?', options: ['Yesssss', 'Nah uh', 'Hell nah', 'You are wierd'], correct: 0 }
+];
+
 
 // Initialize the application
 document.addEventListener('DOMContentLoaded', function() {
     // Load sample data first
     timelineEvents = [...sampleTimelineEvents];
+    quizQuestions = [...sampleQuizQuestions];
     
     // Initialize components
     initializeLoveLetterOpening();
@@ -111,6 +128,38 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Update displays after everything is initialized
     renderTimeline();
+    renderQuiz();
+
+    // Music toggle
+    const musicToggle = document.getElementById('music-toggle');
+    const audio = document.getElementById('bg-music');
+    if (musicToggle && audio) {
+        musicToggle.addEventListener('click', () => {
+            if (audio.paused) {
+                audio.play().catch(() => {});
+                musicToggle.textContent = '🔊 Music';
+            } else {
+                audio.pause();
+                musicToggle.textContent = '🔈 Music';
+            }
+        });
+    }
+
+    // Try to autoplay immediately on load (may be blocked by some browsers)
+    try {
+        if (audio) {
+            audio.volume = 0.25;
+            const p = audio.play();
+            if (p && typeof p.then === 'function') {
+                p.then(() => {
+                    if (musicToggle) musicToggle.textContent = '🔊 Music';
+                }).catch(() => {
+                    // Autoplay blocked; keep button to start manually
+                    if (musicToggle) musicToggle.textContent = '🔈 Music';
+                });
+            }
+        }
+    } catch (_) {}
 });
 
 // Love Letter Opening Animation Functions
@@ -156,13 +205,23 @@ function initializeIntro() {
 }
 
 function startIntroSlideshow() {
+    // Reset to first slide
+    currentSlide = 0;
+    const slides = document.querySelectorAll('.intro-slide');
+    slides.forEach(s => s.classList.remove('active'));
+    if (slides[0]) slides[0].classList.add('active');
+    updateProgressBar();
+
+    // Ensure equal timing for all slides
+    clearInterval(slideInterval);
     slideInterval = setInterval(() => {
-        if (currentSlide < 3) {
+        const lastIndex = slides.length - 1;
+        if (currentSlide < lastIndex) {
             nextSlide();
         } else {
             clearInterval(slideInterval);
         }
-    }, 3000);
+    }, 3500); // 3.5s per slide for comfortable reading
 }
 
 function nextSlide() {
@@ -193,6 +252,14 @@ function startMainExperience() {
         introSequence.style.display = 'none';
         mainApp.classList.remove('hidden');
         mainApp.style.opacity = '1';
+        // Start background music after user interaction
+        try {
+            const audio = document.getElementById('bg-music');
+            if (audio) {
+                audio.volume = 0.25;
+                audio.play().catch(() => {});
+            }
+        } catch (_) {}
     }, 500);
 }
 
@@ -232,6 +299,12 @@ function showSection(sectionName) {
         if (sectionName === 'timeline') {
             setTimeout(() => {
                 renderTimeline();
+            }, 50);
+        }
+        // Ensure quiz renders when quiz section is shown
+        if (sectionName === 'quiz') {
+            setTimeout(() => {
+                renderQuiz();
             }, 50);
         }
     }
@@ -525,3 +598,63 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Save data when changes are made
 window.addEventListener('beforeunload', saveData);
+
+// Quiz Functions (read-only)
+function renderQuiz() {
+    const quizContainer = document.getElementById('quiz-container');
+    if (!quizContainer || quizQuestions.length === 0) return;
+    
+    // Ensure index bounds
+    if (currentQuizQuestion >= quizQuestions.length) currentQuizQuestion = 0;
+    
+    const q = quizQuestions[currentQuizQuestion];
+    quizContainer.innerHTML = `
+        <div class="quiz-question">
+            <h3>Question ${currentQuizQuestion + 1} of ${quizQuestions.length}</h3>
+            <p>${q.question}</p>
+            <div class="quiz-options">
+                ${q.options.map((option, index) => `
+                    <div class="quiz-option" onclick="selectQuizOption(${index})">${option}</div>
+                `).join('')}
+            </div>
+            <button class="add-event-btn" onclick="nextQuizQuestion()" style="margin-top: 1rem;">${currentQuizQuestion === quizQuestions.length - 1 ? 'See Results' : 'Next Question'}</button>
+        </div>
+    `;
+}
+
+function selectQuizOption(optionIndex) {
+    const options = document.querySelectorAll('.quiz-option');
+    options.forEach(option => option.classList.remove('selected'));
+    options[optionIndex].classList.add('selected');
+    quizQuestions[currentQuizQuestion].selected = optionIndex;
+}
+
+function nextQuizQuestion() {
+    if (currentQuizQuestion < quizQuestions.length - 1) {
+        currentQuizQuestion++;
+        renderQuiz();
+    } else {
+        showQuizResults();
+    }
+}
+
+function showQuizResults() {
+    const quizContainer = document.getElementById('quiz-container');
+    let correct = 0;
+    quizQuestions.forEach(q => { if (q.selected === q.correct) correct++; });
+    const percent = Math.round((correct / quizQuestions.length) * 100);
+    quizContainer.innerHTML = `
+        <div class="quiz-question">
+            <h3>Quiz Complete!</h3>
+            <p>You got ${correct} out of ${quizQuestions.length} questions correct!</p>
+            <p>${percent}% - ${percent >= 80 ? 'Amazing!' : percent >= 60 ? 'Great job!' : 'So cute, keep learning about us!'} </p>
+            <button class="add-event-btn" onclick="restartQuiz()">Take Quiz Again</button>
+        </div>
+    `;
+}
+
+function restartQuiz() {
+    currentQuizQuestion = 0;
+    quizQuestions.forEach(q => delete q.selected);
+    renderQuiz();
+}
