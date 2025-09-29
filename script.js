@@ -74,7 +74,7 @@ const sampleTimelineEvents = [
         id: 6,
         title: 'Our Hardest Goodbye Yet',
         date: '2025-09-20',
-        description: "Who knew saying goodbye to each other would be this emotional (I actually cried by myself the night before but I didn't tell you because I was shy)"
+        description: 'Who knew saying goodbye to each other would be this emotional (I actually cried by myself the night before but I didn\'t tell you because I was shy)'
     },
     {
         id: 7,
@@ -87,16 +87,17 @@ const sampleTimelineEvents = [
 
 // Initialize the application
 document.addEventListener('DOMContentLoaded', function() {
+    // Load sample data first
+    timelineEvents = [...sampleTimelineEvents];
+    
+    // Initialize components
     initializeIntro();
     initializeNavigation();
     initializePhotoWall();
     initializeTimeline();
     createRomanticEffects();
     
-    // Load sample data
-    timelineEvents = [...sampleTimelineEvents];
-    
-    // Update displays
+    // Update displays after everything is initialized
     renderTimeline();
 });
 
@@ -178,6 +179,13 @@ function showSection(sectionName) {
     const targetSection = document.getElementById(sectionName);
     if (targetSection) {
         targetSection.classList.add('active');
+        
+        // Re-render timeline when timeline section is shown
+        if (sectionName === 'timeline') {
+            setTimeout(() => {
+                renderTimeline();
+            }, 50);
+        }
     }
 }
 
@@ -237,7 +245,16 @@ function openPhotoModal(photo) {
 
 function renderTimeline() {
     const timelineContainer = document.getElementById('timeline-container');
-    if (!timelineContainer) return;
+    if (!timelineContainer) {
+        console.log('Timeline container not found');
+        return;
+    }
+    
+    if (!timelineEvents || timelineEvents.length === 0) {
+        console.log('No timeline events to render');
+        timelineContainer.innerHTML = '<p style="text-align: center; color: #666;">No timeline events available.</p>';
+        return;
+    }
     
     timelineContainer.innerHTML = '';
     
@@ -256,6 +273,8 @@ function renderTimeline() {
         `;
         timelineContainer.appendChild(timelineItem);
     });
+    
+    console.log(`Rendered ${sortedEvents.length} timeline events`);
 }
 
 function formatDate(dateString) {
@@ -444,9 +463,16 @@ function loadData() {
 // Load saved data on page load
 document.addEventListener('DOMContentLoaded', function() {
     loadData();
-    if (timelineEvents.length > 0) {
-        renderTimeline();
+    
+    // Ensure timeline events are available
+    if (!timelineEvents || timelineEvents.length === 0) {
+        timelineEvents = [...sampleTimelineEvents];
     }
+    
+    // Render timeline with a small delay to ensure DOM is ready
+    setTimeout(() => {
+        renderTimeline();
+    }, 100);
 });
 
 // Save data when changes are made
