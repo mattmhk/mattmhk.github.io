@@ -42,42 +42,54 @@ const samplePhotos = [
 const sampleTimelineEvents = [
     {
         id: 1,
+        title: 'First Meeting',
+        date: '2025-02-27',
+        description: 'The day we first met and everything changed forever.'
+    },
+    {
+        id: 2,
+        title: 'First Game of Roblox - Blair',
+        date: '2025-03-12',
+        description: 'I used to think you were actually 25! ToT'
+    },
+    {
+        id: 3,
         title: 'Becoming Official',
         date: '2025-05-01',
         description: 'The day we decided to make it official and start this beautiful journey together.'
     },
     {
-        id: 2,
+        id: 4,
         title: 'First Time Meeting IRL',
         date: '2025-07-04',
         description: 'I was so nervous, my heart was pounding like crazy! But I fell in love with you even more as soon as I saw you.'
     },
     {
-        id: 3,
+        id: 5,
         title: 'First Date',
         date: '2025-09-05',
         description: 'We went to Lotus to eat Som Tum and had some drinks hehe'
     },
     {
-        id: 4,
+        id: 6,
         title: 'Second Time Meeting IRL',
         date: '2025-09-10',
         description: 'It was like meeting for the first time all over again!!! Both our hearts were racing'
     },
     {
-        id: 5,
+        id: 7,
         title: 'Our First Time',
         date: '2025-09-12',
         description: 'Two lovefools deciding to give each others virginity.'
     },
     {
-        id: 6,
+        id: 8,
         title: 'Our Hardest Goodbye Yet',
         date: '2025-09-20',
         description: 'Who knew saying goodbye to each other would be this emotional (I actually cried by myself the night before but I didn\'t tell you because I was shy)'
     },
     {
-        id: 7,
+        id: 9,
         title: '5 Month Anniversary',
         date: '2025-10-01',
         description: 'Celebrating 5 amazing months of love, laughter, and growing together.'
@@ -91,7 +103,7 @@ document.addEventListener('DOMContentLoaded', function() {
     timelineEvents = [...sampleTimelineEvents];
     
     // Initialize components
-    initializeIntro();
+    initializeLoveLetterOpening();
     initializeNavigation();
     initializePhotoWall();
     initializeTimeline();
@@ -101,8 +113,44 @@ document.addEventListener('DOMContentLoaded', function() {
     renderTimeline();
 });
 
+// Love Letter Opening Animation Functions
+function initializeLoveLetterOpening() {
+    // Hide love letter opening and show intro sequence after 5 seconds
+    const loveLetterOpening = document.getElementById('love-letter-opening');
+    const introSequence = document.getElementById('intro-sequence');
+    
+    console.log('Love letter opening initialized');
+    
+    // Add click handler to skip animation
+    loveLetterOpening.addEventListener('click', () => {
+        console.log('Skipping love letter animation');
+        loveLetterOpening.style.opacity = '0';
+        setTimeout(() => {
+            loveLetterOpening.style.display = 'none';
+            introSequence.classList.remove('hidden');
+            introSequence.style.opacity = '1';
+            startIntroSlideshow();
+            updateProgressBar();
+        }, 300);
+    });
+    
+    setTimeout(() => {
+        console.log('Starting transition to intro sequence');
+        loveLetterOpening.style.opacity = '0';
+        setTimeout(() => {
+            loveLetterOpening.style.display = 'none';
+            introSequence.classList.remove('hidden');
+            introSequence.style.opacity = '1';
+            console.log('Intro sequence should now be visible');
+            startIntroSlideshow();
+            updateProgressBar();
+        }, 800);
+    }, 5000);
+}
+
 // Intro Sequence Functions
 function initializeIntro() {
+    // This function is called after the love letter transition
     startIntroSlideshow();
     updateProgressBar();
 }
