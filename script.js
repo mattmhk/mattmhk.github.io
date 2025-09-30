@@ -69,7 +69,7 @@ const sampleTimelineEvents = [
     {
         id: 5,
         title: 'First Date',
-        date: '2025-09-05',
+        date: '2025-07-05',
         description: 'We went to Lotus to eat Som Tum and had some drinks hehe'
     },
     {
